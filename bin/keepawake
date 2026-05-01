@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+HOURS="${1:-}"
+
+if [[ -z "$HOURS" ]]; then
+  echo "Keeping system awake indefinitely. Press Ctrl+C to stop."
+  DURATION="infinity"
+elif [[ "$HOURS" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+  echo "Keeping system awake for ${HOURS} hour(s). Press Ctrl+C to stop early."
+  DURATION="${HOURS}h"
+else
+  echo "Usage: keepawake [hours]"
+  echo "Example: keepawake        # indefinitely"
+  echo "Example: keepawake 8      # 8 hours"
+  echo "Example: keepawake 1.5    # 1.5 hours"
+  exit 1
+fi
+
+systemd-inhibit \
+  --what=sleep:idle \
+  --who="keepawake" \
+  --why="Temporary remote work session" \
+  --mode=block \
+  sleep "$DURATION"
