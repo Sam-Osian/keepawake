@@ -34,7 +34,7 @@ Keeps the system awake for 1.5 hours, or until `Ctrl+C`.
 From GitHub:
 
 ```bash
-git clone https://github.com/<your-org-or-username>/keepawake.git
+git clone https://github.com/Sam-Osian/keepawake.git
 cd keepawake
 ./install.sh
 ```
@@ -46,31 +46,10 @@ The installer copies the script to:
 
 It does not modify your shell config files automatically.
 
-You'll need to append the PATH safely with:
+So you'll need to add `~/.local/bin` to your PATH (only if missing):
 
 ```bash
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 ```
 
-Alternatively, if you prefer, edit `~/.bashrc` manually:
-
-```bash
-nano ~/.bashrc
-```
-
-Then:
-- Scroll to the bottom
-- Add this line:
-
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-```
-
-- Save your changes.
-- Reload with:
-
-```bash
-source ~/.bashrc
-```
-
-Then `keepawake` should be accessible everywhere.
+Now `keepawake` should be accessible everywhere.
